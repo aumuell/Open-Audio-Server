@@ -188,8 +188,9 @@ bool FileHandler::findXML(const char *name, const char *attr, const char *value,
 
     if (node)
     {
-        if (node->child && node->child->value.opaque)
-            output = node->child->value.opaque;
+        if (mxml_node_t *child = mxmlGetFirstChild(node)) {
+            output = mxmlGetOpaque(child);
+        }
 
         return true;
     }
