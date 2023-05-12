@@ -45,8 +45,10 @@ bool SocketHandler::initialize(long int listeningPort)
     // Initialize condition variables
     pthread_condattr_t inCondAttr;
     pthread_condattr_init(&inCondAttr);
+#ifndef __APPLE__
     // Have the inCondition use the monotonic clock, for pthread_condtimedwait()
     pthread_condattr_setclock(&inCondAttr, CLOCK_MONOTONIC);
+#endif
 
     pthread_cond_init(&SocketHandler::_inCondition, &inCondAttr);
     pthread_cond_init(&SocketHandler::_outCondition, NULL);
